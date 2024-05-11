@@ -7,6 +7,5 @@ namespace OrderApp.Controllers
     [ApiController]
     public class AuthenticateController : ControllerBase
     {
-        public string Name { get; set; }
     }
 }
