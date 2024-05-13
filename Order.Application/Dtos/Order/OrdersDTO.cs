@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Order.Domain.Entities
+namespace Order.Application.Dtos.Order
 {
-    public class Orders
+    public class OrdersDTO
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
         public int UserId { get; set; }
-        public bool isQrderProcessed { get; set; } = false;    
         public float TotalPrice { get; set; }
-        public virtual Product ProductType { get; set; }
-        public virtual User UserInfo { get; set; }
+        public string ProductName { get; set; }
+        public string FirstName { get; set; }
+        public string Email { get; set; }
     }
 }

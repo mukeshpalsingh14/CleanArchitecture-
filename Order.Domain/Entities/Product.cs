@@ -8,5 +8,6 @@
         public int Price { get; set; }
         public DateTime CreatedDate { get; set; }
         public Boolean IsActive { get; set; }
+        public ICollection<Orders>? Orders { get; set; }
     }
 }

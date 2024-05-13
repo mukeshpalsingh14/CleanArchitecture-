@@ -39,14 +39,14 @@ namespace Order.Infrastructure.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserInfoId")
-                        .HasColumnType("int");
+                    b.Property<bool>("isQrderProcessed")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
-                    b.HasIndex("UserInfoId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Order");
                 });
@@ -159,20 +159,30 @@ namespace Order.Infrastructure.Migrations
             modelBuilder.Entity("Order.Domain.Entities.Orders", b =>
                 {
                     b.HasOne("Order.Domain.Entities.Product", "ProductType")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Order.Domain.Entities.RegisterModel", "UserInfo")
-                        .WithMany()
-                        .HasForeignKey("UserInfoId")
+                    b.HasOne("Order.Domain.Entities.User", "UserInfo")
+                        .WithMany("Order")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ProductType");
 
                     b.Navigation("UserInfo");
+                });
+
+            modelBuilder.Entity("Order.Domain.Entities.Product", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Order.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Order");
                 });
 #pragma warning restore 612, 618
         }

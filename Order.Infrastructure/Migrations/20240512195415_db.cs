@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Order.Infrastructure.Migrations
 {
-    public partial class Databaseint : Migration
+    public partial class db : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,8 +80,8 @@ namespace Order.Infrastructure.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<float>(type: "real", nullable: false),
-                    UserInfoId = table.Column<int>(type: "int", nullable: false)
+                    isQrderProcessed = table.Column<bool>(type: "bit", nullable: false),
+                    TotalPrice = table.Column<float>(type: "real", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,9 +93,9 @@ namespace Order.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Order_RegisterModel_UserInfoId",
-                        column: x => x.UserInfoId,
-                        principalTable: "RegisterModel",
+                        name: "FK_Order_User_UserId",
+                        column: x => x.UserId,
+                        principalTable: "User",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -106,9 +106,9 @@ namespace Order.Infrastructure.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Order_UserInfoId",
+                name: "IX_Order_UserId",
                 table: "Order",
-                column: "UserInfoId");
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -117,7 +117,7 @@ namespace Order.Infrastructure.Migrations
                 name: "Order");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "RegisterModel");
 
             migrationBuilder.DropTable(
                 name: "UserRole");
@@ -126,7 +126,7 @@ namespace Order.Infrastructure.Migrations
                 name: "Product");
 
             migrationBuilder.DropTable(
-                name: "RegisterModel");
+                name: "User");
         }
     }
 }
